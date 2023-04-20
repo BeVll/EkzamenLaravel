@@ -1,0 +1,152 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+@import url("https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css");
+
+@import url("https://fonts.googleapis.com/css?family=Titillium+Web:300");
+
+body{
+    background-color: #EFF2F7;
+}
+
+
+
+.iconMenu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 46px;
+    .fa-2x {
+        font-size: 2em;
+    }
+    .fa {
+        position: relative;
+        display: block;
+        text-align: center;
+        vertical-align: middle;
+        font-size:24px;
+        color: $sidebar-font-color;
+
+    }
+}
+
+
+
+.main-menu {
+    background:#FFFFFF;
+    border-right:1px solid #e5e5e5;
+    position:absolute;
+    top:0;
+    bottom:0;
+    height:100%;
+    left:0;
+    width:76px;
+    -webkit-transition:width .05s linear;
+    transition:width .05s linear;
+    -webkit-transform:translateZ(0) scale(1,1);
+    z-index:1000;
+    transition: 0.3s;
+
+}
+.activeMenu{
+    background-color: $sidebar-active-li;
+    transition: 0.4s;
+    .fa{
+        color: white;
+    }
+    .nav-text{
+        color: white;
+    }
+}
+
+.menu{
+    padding: 0 15px;
+}
+
+
+.main-menu li {
+    position:relative;
+    display:block;
+    margin: 5px 0;
+    z-index: 10;
+
+}
+
+.main-menu li>a {
+    position:relative;
+    display:flex;
+
+    align-items: center;
+
+    border-collapse:collapse;
+    border-spacing:0;
+    font-family: arial;
+    font-size: 14px;
+    text-decoration:none;
+    transition: 0.4s;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 46px;
+    width: 46px;
+}
+
+
+
+.main-menu .nav-text {
+    position:relative;
+    display:block;
+    vertical-align:middle;
+
+    font-family: 'Arial', sans-serif;
+    color: $sidebar-font-color;
+    font-size: 15px;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-right: 12px;
+}
+
+.main-menu>ul.logout {
+    position:absolute;
+    left:0;
+    bottom:0;
+    padding: 15px;
+}
+.main-menu li a:hover{
+    background-color: $sidebar-active-li;
+    width: fit-content;
+    .fa{
+        color: white;
+    }
+    .nav-text{
+        color: white;
+    }
+}
+.main-menu .logout li a:hover{
+    background-color: #a30404;
+
+
+}
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
+}
+
+.logoBlock{
+    margin: 5px;
+}
+
+.logoDash{
+    font-family: "Comic Sans MS";
+    font-size: 25px;
+    font-weight: 500;
+    margin-left: 0px;
+}
