@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'store', 'update', 'delete']]);
+    }
+
     /**
      * @OA\Get(
      *     tags={"Category"},
@@ -75,11 +79,13 @@ class CategoryController extends Controller
         $category = Category::create($input);
         return response()->json($category);
     }
-    public function update(Request $request, $id){
+    public function update(Request $request, $id, $change){
         $input = $request->all();
 
-        print ($request->boolean("imgChange"));
-        if($request->boolean("imgChange") == true){
+
+
+        if($change == "true"){
+            print ("aga");
             $deleteImage = Category::where('id', $id)->first()->image;
 
             Storage::disk("local")->delete("public/images/categories/" . $deleteImage);
