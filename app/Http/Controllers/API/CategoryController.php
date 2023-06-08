@@ -4,15 +4,13 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use Faker\Core\File;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'store', 'update', 'delete']]);
+        $this->middleware('auth:api', ['except' => ['index', 'all', 'show', 'store', 'update', 'delete']]);
     }
 
     /**
@@ -26,7 +24,10 @@ class CategoryController extends Controller
         $categories = Category::paginate(2);
         return response()->json($categories, 200);
     }
-
+    public function all(){
+        $categories = Category::all();
+        return response()->json($categories, 200);
+    }
     public function show(int $id){
         $category = Category::where('id', $id)->first();
         return response()->json($category);

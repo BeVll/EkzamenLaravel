@@ -67,6 +67,61 @@
                 }
             }
         },
+        "/api/products": {
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "operationId": "7ff81b1681ff3180e5b73a2e15f2c67b",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "image",
+                                    "name",
+                                    "priority",
+                                    "price",
+                                    "category_id",
+                                    "description",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "image": {
+                                        "type": "file",
+                                        "format": "binary"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "priority": {
+                                        "type": "number"
+                                    },
+                                    "price": {
+                                        "type": "number"
+                                    },
+                                    "category_id": {
+                                        "type": "number"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Add Category."
+                    }
+                }
+            }
+        },
         "/api/auth/login": {
             "post": {
                 "tags": [
@@ -74,24 +129,29 @@
                 ],
                 "summary": "Login",
                 "operationId": "login",
-                "parameters": [
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                "requestBody": {
+                    "description": "User login data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -106,7 +166,7 @@
                         "description": "Bad Request"
                     },
                     "404": {
-                        "description": "not found"
+                        "description": "Not Found"
                     },
                     "403": {
                         "description": "Forbidden"

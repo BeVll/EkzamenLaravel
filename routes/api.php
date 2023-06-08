@@ -3,7 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,10 +21,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/categories', [CategoryController::class, "index"]);
+Route::get('/categoriesAll', [CategoryController::class, "all"]);
 Route::get('/category/{id}', [CategoryController::class, "show"]);
 Route::post('/categories', [CategoryController::class, "store"]);
 Route::post('/category/{id}/{check}', [CategoryController::class, "update"]);
 Route::delete('/categories/{id}', [CategoryController::class, "delete", []]);
+
+Route::get('/products', [ProductController::class, "index"]);
+Route::get('/product/{id}', [ProductController::class, "show"]);
+Route::post('/products', [ProductController::class, "store"]);
+Route::post('/product/{id}/{check}', [ProductController::class, "update"]);
+Route::delete('/product/{id}', [ProductController::class, "delete", []]);
 
 Route::group([
     'middleware' => 'api',
