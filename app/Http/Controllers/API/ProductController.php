@@ -81,33 +81,31 @@ class ProductController extends Controller
         $category = Product::create($input);
         return response()->json($category);
     }
-//    public function update(Request $request, $id, $change){
-//        $input = $request->all();
-//
-//
-//
-//        if($change == "true"){
-//            print ("aga");
-//            $deleteImage = Category::where('id', $id)->first()->image;
-//
-//            Storage::disk("local")->delete("public/images/categories/" . $deleteImage);
-//            $filename = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
-//
-//            Storage::disk('local')->put("public/images/categories/" . $filename, file_get_contents($request->file("image")));
-//            $input["image"] = $filename;
-//        }
-//
-//        if($input["status"])
-//            $input["status"] = 1;
-//        else
-//            $input["status"] = 0;
-//        $category = Category::where('id', $id)->update($input);
-//        return response()->json($input);
-//    }
-//    public function delete(int $id){
-//        $tmp = Category::where('id', $id)->first();
-//        Storage::disk("local")->delete("public/images/categories/".$tmp->image);
-//        $category = Category::destroy($id);
-//        return response()->json($category);
-//    }
+    public function update(Request $request, $id, $change){
+        $input = $request->all();
+
+        if($change == "true"){
+            print ("aga");
+            $deleteImage = Product::where('id', $id)->first()->image;
+
+            Storage::disk("local")->delete("public/images/products/" . $deleteImage);
+            $filename = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+
+            Storage::disk('local')->put("public/images/products/" . $filename, file_get_contents($request->file("image")));
+            $input["image"] = $filename;
+        }
+
+        if($input["status"])
+            $input["status"] = 1;
+        else
+            $input["status"] = 0;
+        $product = Product::where('id', $id)->update($input);
+        return response()->json($input);
+    }
+    public function delete(int $id){
+        $tmp = Product::where('id', $id)->first();
+        Storage::disk("local")->delete("public/images/products/".$tmp->image);
+        $product = Product::destroy($id);
+        return response()->json($product);
+    }
 }

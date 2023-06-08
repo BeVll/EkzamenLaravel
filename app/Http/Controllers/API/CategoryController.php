@@ -83,8 +83,6 @@ class CategoryController extends Controller
     public function update(Request $request, $id, $change){
         $input = $request->all();
 
-
-
         if($change == "true"){
             print ("aga");
             $deleteImage = Category::where('id', $id)->first()->image;
