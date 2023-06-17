@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -69,17 +70,20 @@ class ProductController extends Controller
     public function store(Request $request){
         $input = $request->all();
         print (response()->json($request->all()));
-        $filename = uniqid(). '.' .$request->file("image")->getClientOriginalExtension();
-        Storage::disk('local')->put("public/images/products/".$filename,file_get_contents($request->file("image")));
-        $input["image"] = $filename;
-
         if($input["status"])
             $input["status"] = 1;
         else
             $input["status"] = 0;
 
-        $category = Product::create($input);
-        return response()->json($category);
+        $product = Product::create($input);
+        $images = [];
+        foreach ($input["images"] as $img){
+            $filename = uniqid(). '.' .$img->getClientOriginalExtension();
+            Storage::disk('local')->put("public/images/products/".$filename,file_get_contents($img));
+            $id = $product->id;
+            array_push($images, ProductImage::create(["path" => $filename, "product_id" => $id, "isMain" => false]));
+        }
+        return response()->json($product);
     }
     public function update(Request $request, $id, $change){
         $input = $request->all();
@@ -104,7 +108,11 @@ class ProductController extends Controller
     }
     public function delete(int $id){
         $tmp = Product::where('id', $id)->first();
-        Storage::disk("local")->delete("public/images/products/".$tmp->image);
+        $images = ProductImage::where('product_id', $id)->all();
+        foreach ($images as $img){
+            Storage::disk("local")->delete("public/images/products/".$img->path);
+        }
+
         $product = Product::destroy($id);
         return response()->json($product);
     }
